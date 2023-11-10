@@ -1,0 +1,31 @@
+.container {
+  width: 300px;
+  margin: auto;
+  padding: 160px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+  flex-wrap: wrap; 
+}
+
+button {
+  height: 25px;
+  width: 80px;
+}
+
+.display {
+  width: 60%;
+  padding: 4px 0;
+  text-align: center;
+  margin-bottom: 8px;
+  background-color: rgba(131, 84, 27, 0.4);
+}
