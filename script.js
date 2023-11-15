@@ -14,22 +14,32 @@ const divide = ((num1, num2) => num1 / num2);
 let number1 = ""
     , number2 = ""
     , operator = ""
-    , displayValue = "";
+    , displayValue = ""
+    , operatorPressedAgain = false
+    , autoReset = false;
 
 //Create the function operate that combines the variables and the operation functions
 const operate = ((num1, num2, operator) => {
   switch (operator) {
     case '+':
-      return number1 = add(Number(num1), Number(num2));
+      number1 = add(Number(num1), Number(num2));
+      number2 = '';
+      return number1;
     break;
     case '-':
-      return subtract(Number(num1), Number(num2));
+      number1 = subtract(Number(num1), Number(num2));
+      number2 = '';
+      return number1;
     break;
     case '*':
-      return multiply(Number(num1), Number(num2));
+      number1 = multiply(Number(num1), Number(num2));
+      number2 = '';
+      return number1;
     break;
     case '/':
-      return divide(Number(num1), Number(num2));
+      number1 = divide(Number(num1), Number(num2));
+      number2 = '';
+      return number1;
     break;
   }
 })
@@ -40,7 +50,15 @@ const btnNumbers = document.querySelectorAll('[data-numbers]');
 
 //Add an event to all the buttons and call a function to add them to the display
 btnNumbers.forEach((button) => {
-  button.addEventListener('click', () => addNumber(button.textContent))
+  button.addEventListener('click', () => {
+    if(autoReset) {
+      display.textContent = '';
+      autoReset = false;
+      addNumber(button.textContent); 
+    } else {
+      addNumber(button.textContent);
+    }
+  })
 })
 
 addNumber = (number) => display.textContent += number;
@@ -58,6 +76,7 @@ btnOperators.forEach((button) => {
 addOperator = (operatorBtns) => {
   display.textContent += operatorBtns;
   operator = operatorBtns;
+  autoReset = false;
 }
 
 //Save the display values in an array an store the values in variables
@@ -69,8 +88,15 @@ saveNumbers = () => {
 //Once the equal button is pressed call the operate function with the values
 equal.addEventListener('click', () => {
   saveNumbers();
-  display.textContent = operate(number1, number2, operator);
+  if(operator != ''){
+    display.textContent = operate(number1, number2, operator);
+  }
+  autoReset = true;
   operator = "";
 })
+
+
+
+
 
 
