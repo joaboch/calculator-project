@@ -15,7 +15,7 @@ let number1 = ""
     , number2 = ""
     , operator = ""
     , displayValue = ""
-    , operatorPressedAgain = false
+    , anotherOperator = false
     , autoReset = false;
 
 //Create the function operate that combines the variables and the operation functions
@@ -37,10 +37,13 @@ const operate = ((num1, num2, operator) => {
       return number1;
     break;
     case '/':
-      number1 = divide(Number(num1), Number(num2));
-      number2 = '';
-      return number1;
-    break;
+      if (number1 == '0' || number2 == '0') {
+        return display.textContent = 'Very funny :';
+      } else {
+        number1 = divide(Number(num1), Number(num2));
+        number2 = '';
+        return number1;
+      }
   }
 })
 
@@ -58,25 +61,30 @@ btnNumbers.forEach((button) => {
     } else {
       addNumber(button.textContent);
     }
+    anotherOperator = true;
   })
 })
 
 addNumber = (number) => display.textContent += number;
-
-const btnOperators = document.querySelectorAll('[data-operators]')
+const btnOperators = document.querySelectorAll('[data-operators]');
 
 btnOperators.forEach((button) => {
   button.addEventListener('click', () =>  { 
-    if(operator == "") {
+    if(operator == '' && anotherOperator) {
       addOperator(button.textContent);
-    }
+    } else if(anotherOperator) {
+      operatorResult();
+      addOperator(button.textContent);
+    } 
   })
 })
+
 
 addOperator = (operatorBtns) => {
   display.textContent += operatorBtns;
   operator = operatorBtns;
   autoReset = false;
+  anotherOperator = false;
 }
 
 //Save the display values in an array an store the values in variables
@@ -92,11 +100,14 @@ equal.addEventListener('click', () => {
     display.textContent = operate(number1, number2, operator);
   }
   autoReset = true;
-  operator = "";
+  operator = '';
 })
-
-
-
+//Create a function that calculates when the operator is pressed again
+function operatorResult() {
+    saveNumbers();
+    display.textContent = operate(number1, number2, operator);
+    operator = '';
+}
 
 
 
