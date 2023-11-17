@@ -29,9 +29,3 @@ button {
   margin-bottom: 8px;
   background-color: rgba(128, 128, 128, 0.60);
 }
-
-/*Code researched to make a placeholder in a div*/
-[contentEditable=true]:empty:before {
-  content: attr(placeholder);
-  opacity: 0.6;
-}

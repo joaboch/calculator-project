@@ -1,5 +1,8 @@
 const display = document.querySelector('.display');
 const equal = document.querySelector('#equal');
+const clear = document.querySelector('#clear');
+const decimal = document.querySelector('#decimal');
+const del = document.querySelector('#del');
 
 //Create the calulator basic function operations
 const add = ((num1, num2) => num1 + num2);
@@ -16,7 +19,8 @@ let number1 = ""
     , operator = ""
     , displayValue = ""
     , anotherOperator = false
-    , autoReset = false;
+    , autoReset = true
+    , decimalRep = true;
 
 //Create the function operate that combines the variables and the operation functions
 const operate = ((num1, num2, operator) => {
@@ -24,17 +28,17 @@ const operate = ((num1, num2, operator) => {
     case '+':
       number1 = add(Number(num1), Number(num2));
       number2 = '';
-      return number1;
+      return Math.round((number1 + Number.EPSILON) * 100) / 100;
     break;
     case '-':
       number1 = subtract(Number(num1), Number(num2));
       number2 = '';
-      return number1;
+      return Math.round((number1 + Number.EPSILON) * 100) / 100;
     break;
     case '*':
       number1 = multiply(Number(num1), Number(num2));
       number2 = '';
-      return number1;
+      return Math.round((number1 + Number.EPSILON) * 100) / 100;
     break;
     case '/':
       if (number1 == '0' || number2 == '0') {
@@ -42,7 +46,7 @@ const operate = ((num1, num2, operator) => {
       } else {
         number1 = divide(Number(num1), Number(num2));
         number2 = '';
-        return number1;
+        return Math.round((number1 + Number.EPSILON) * 100) / 100;
       }
   }
 })
@@ -85,6 +89,7 @@ addOperator = (operatorBtns) => {
   operator = operatorBtns;
   autoReset = false;
   anotherOperator = false;
+  decimalRep = true;
 }
 
 //Save the display values in an array an store the values in variables
@@ -109,5 +114,27 @@ function operatorResult() {
     operator = '';
 }
 
+//Clear the entire operation
+clear.addEventListener('click', () => {
+  number1 = ""
+  , number2 = ""
+  , operator = ""
+  , displayValue = ""
+  , anotherOperator = false
+  , autoReset = false
+  , decimalRep = true
+  , display.textContent = "0";
+})
 
+
+//Add the decimal when clicked and don't repeat it
+decimal.addEventListener('click', () => {
+  autoReset = false;
+  if((display.textContent == '' || number2 == '') && decimalRep) {
+    display.textContent += '0.';
+  } else if(decimalRep){
+    display.textContent += '.';
+    decimalRep = false;
+  }
+})
 
