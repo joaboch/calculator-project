@@ -147,6 +147,7 @@ del.addEventListener('click', () => {
   display.textContent = display.textContent.substring(0, display.textContent.length - 1);
   if(display.textContent == '') {
     display.textContent  = '0';
+    autoReset = true
   }
 })
 
