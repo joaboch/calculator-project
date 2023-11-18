@@ -104,7 +104,7 @@ equal.addEventListener('click', () => {
   if(operator != ''){
     display.textContent = operate(number1, number2, operator);
     autoReset = true;
-  } else if (number1 == '0') {
+  } else if (number1 == '') {
     autoReset = false;
   }
   operator = '';
