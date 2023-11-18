@@ -103,8 +103,10 @@ equal.addEventListener('click', () => {
   saveNumbers();
   if(operator != ''){
     display.textContent = operate(number1, number2, operator);
+    autoReset = true;
+  } else if (number1 == '0') {
+    autoReset = false;
   }
-  autoReset = true;
   operator = '';
 })
 //Create a function that calculates when the operator is pressed again
