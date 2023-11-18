@@ -121,7 +121,7 @@ clear.addEventListener('click', () => {
   , operator = ""
   , displayValue = ""
   , anotherOperator = false
-  , autoReset = false
+  , autoReset = true
   , decimalRep = true
   , display.textContent = "0";
 })
@@ -135,6 +135,18 @@ decimal.addEventListener('click', () => {
   } else if(decimalRep){
     display.textContent += '.';
     decimalRep = false;
+  }
+})
+
+//Delete the last character added
+del.addEventListener('click', () => {
+  if(display.textContent[display.textContent.length - 1] == operator) {
+    operator = '';
+    anotherOperator = true;
+  }
+  display.textContent = display.textContent.substring(0, display.textContent.length - 1);
+  if(display.textContent == '') {
+    display.textContent  = '0';
   }
 })
 
